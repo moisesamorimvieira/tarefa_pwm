@@ -81,6 +81,7 @@ Com o emprego do módulo PWM (do inglês, Pulse Width Modulation), presente no m
 <figcaption>
 
 **Figura 1** - Demo do Projeto no Wokwi.com - Acessível em: https://wokwi.com/projects/422596466361412609
+**Figura 1** - Demo do Projeto no Youtube.com - Acessível em: https://wokwi.com/projects/422596466361412609
     </figcaption>
   </figure>
 </div>
