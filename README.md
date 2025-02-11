@@ -1,35 +1,33 @@
 <img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=02A6F4&height=120&section=header"/>
-<h1 align="center">Embarcatec | Clock e Temporizadores /  Atividade 2: Temporizador de um disparo (One Shot). </h1>
+<h1 align="center">Embarcatec | Unidade 4 | Capítulo 7 /  PWM - Atividade: Controle de servomotor por PWM. </h1>
 
 <div align="center">  
   <img width=40% src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=02A6F4&style=for-the-badge"/>
 </div>
 
 ## Objetivo do Projeto
-
-Com o emprego da função add_alarm_in_ms(), presente na ferramenta Pico SDK, projete um sistema de temporização para o acionamento de LEDs, que atua a partir do clique em um botão (pushbutton). Nesta prática, será necessário simular os seguintes componentes (simulação sugerida presente na Figura 2):
+Atividade: Controle de servomotor por PWM.
+Com o emprego do módulo PWM (do inglês, Pulse Width Modulation), presente no microcontrolador RP2040, projete um sistema com a ferramenta Pico SDK para simular o controle do ângulo de um servomotor. Esta simulação contemplará o motor micro servo padrão, presente no simulador de eletrônica online Wokwi.
 
 1) Microcontrolador Raspberry Pi Pico W.
-2) 03 LEDs (azul, vermelho e verde).
-3) 03 Resistores de 330 Ω.
-4) Botão (Pushbutton).
+2) Servomotor – motor micro servo padrão – Wokwi.
 
 ## 🗒️ Lista de requisitos
 
-1) Caso o usuário clique no botão (pushbutton), os três LEDs serão ligados (todos em nível alto). A partir da primeira rotina de atraso, ocorrerá uma mudança de estado
-para dois LEDs ligados e, em seguida, apenas um. Obs.: veja o vídeo associado a esta prática no link presente na Figura 3.
+## Os requisitos para a realização desta atividade são:
 
-3) O temporizador do alarme deve ser ajustado para um atraso de 3 segundos (3.000ms), entre os estados de acionamento dos LEDs.
-4) A mudança de estado dos LEDs deve ser implementa em funções de call-back do temporizador, a exemplo da rotina trabalhada na aula síncrona - turn_off_callback().
-5) O botão só pode alterar o estado dos LEDs quando o último LED for desligado. Deste modo, durante a execução das rotinas de temporização, o botão não pode iniciar uma nova chamada da função call-back.
-6) Com o emprego da Ferramenta Educacional BitDogLab, faça um experimento com o código deste exercício utilizando o LED RGB – GPIOs 11, 12 e 13 e o Botão A, GPIO 05.
-7) Opcional: Implementar uma rotina em software para atenuação do efeito bouncing no botão (software debounce). Destacamos aqui alguns passos necessários para este projeto.
+1) Considerando a GPIO 22, defina a sua frequência de PWM para, aproximadamente, 50Hz – período de 20ms. (20% da nota).
+
+2) Defina o ciclo ativo do módulo PWM para 2.400μs (microssegundos) – Ciclo de Trabalho (Duty Cycle) de 0,12%. isto ajustará a flange (braço) do servomotor para a posição de, aproximadamente, 180 graus. Aguarde 05 segundos nesta posição. (10% da nota)
+
+3) Defina o ciclo ativo do módulo PWM para 1.470μs (microssegundos) – Ciclo de Trabalho (Duty Cycle) de 0,0735%. Isto ajustará a flange do servomotor para a posição de, aproximadamente, 90 graus. Aguarde 05 segundos nesta posição. (10% da nota)
+
+4) Defina o ciclo ativo do módulo PWM para 500μs (microssegundos) – Ciclo de Trabalho (Duty Cycle) de 0,025%. Isto ajustará a flange do servomotor para a posição de, aproximadamente, 0 graus. Aguarde 05 segundos nesta posição. (10% da nota)
+
+5) Após a realização das proposições anteriores, crie uma rotina para movimentação periódica do braço do servomotor entre os ângulos de 0 e 180 graus. Obs.: a movimentação da flange deve ser suave, recomenda-se o incremento de ciclo ativo de ±5μs, com um atraso de ajuste de 10ms. (35% da nota)
+
+6) Com o emprego da Ferramenta Educacional BitDogLab, faça um experimento com o código deste exercício utilizando o LED RGB – GPIO 12. O que o discente observou no comportamento da iluminação do referido LED? (15% da nota)
    
-• Deve-se utilizar o ambiente de desenvolvimento VS Code em todas as duas atividades;
-• Os códigos devem ser escritos na linguagem C, juntamente com os recursos do Kit de Desenvolvimento de Software Pico SDK;
-• O simulador Wokwi deve estar integrado ao ambiente de desenvolvimento VS Code;
-• Deve-se criar um repositório no github para o versionamento, registro e submissão dessa atividade.
-
 ## 🛠 Tecnologias
 
 1. **Git e Github**;
@@ -43,29 +41,27 @@ para dois LEDs ligados e, em seguida, apenas um. Obs.: veja o vídeo associado a
 
 ## Funcionalidades do Código
 
-1. Controlo de LEDs via GPIO:
-Configura pinos GPIO para controlar LEDs nos pinos 11, 12 e 13.
-Utiliza gpio_put() para ligar e desligar os LEDs.
+• Destacamos aqui alguns passos necessários para este projeto.
 
-2. Botão de Entrada e Interrupções:
-Usa o pino GPIO 5 para leitura do botão.
-Configura interrupção para detecção do botão pressionado com gpio_set_irq_enabled_with_callback().
+• Deve-se utilizar o ambiente de desenvolvimento VS Code em todas as duas atividades;
 
-3. Alarms e Callbacks:
-Utiliza add_alarm_in_ms() para configurar callbacks que controlam a sequência de desligamento dos LEDs.
+• Os códigos devem ser escritos na linguagem C, juntamente com os recursos do Kit de Desenvolvimento de Software Pico SDK;
 
-4. Controlo de Fluxo e Estado:
-Loop while(1) para execução contínua do programa.
-Usa sleep_ms(100) para pausas no loop principal.
+• O simulador Wokwi deve estar integrado ao ambiente de desenvolvimento VS Code;
 
-5. Debounce do Botão:
-Função debounce_button() para lidar com o efeito de debounce do botão.
+• Deve-se criar um repositório no github para o versionamento, registro e submissão dessa atividade.
 
-6. Comunicação Serial:
-Inicialização da comunicação serial com stdio_init_all() para exibir mensagens no terminal.
+# Orientação para o desenvolvimento da tarefa:
+• Esta tarefa é individual.
+
+• Deve-se implementar testes básicos para garantir que cada recurso esteja funcionamento corretamente.
+
+• É necessário adicionar um arquivo README.md com instruções de uso do programa.
+
+• Como etapa final, o discente irá produzir um vídeo ensaio, com duração máxima de 3 minutos, apresentando a solução trabalhada e os resultados obtidos nos experimentos. O link deste vídeo deve estar presente no arquivo README.md do repositório do github.
 
 
-## 💻 Desenvolvedores
+## 💻 Desenvolvedor
  
 <table>
   <tr>
@@ -84,7 +80,7 @@ Inicialização da comunicação serial com stdio_init_all() para exibir mensage
     
 <figcaption>
 
-**Figura 1** - Demo do Projeto no Wokwi.com - Acessível em: https://wokwi.com/projects/421471551935887361
+**Figura 1** - Demo do Projeto no Wokwi.com - Acessível em: https://wokwi.com/projects/422596466361412609
     </figcaption>
   </figure>
 </div>
